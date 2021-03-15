@@ -22,5 +22,12 @@ jobs:
         id: third
         with:
           arg: ${{ steps.second.outputs.out }}
+    outputs:
+      out: ${{ steps.third.outputs.out }}
+  print_stuff:
+    runs-on: ubuntu-latest
+    needs: process_stuff
+    name: A job to print stuff
+    steps:
       - name: Get the output
-        run: echo "The result is ${{ steps.third.outputs.out }}"
+        run: echo "The result is ${{ needs.process_stuff.outputs.out }}"
