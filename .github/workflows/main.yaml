@@ -11,7 +11,7 @@ jobs:
         uses: ./first
         id: first
         with:
-          arg: 'Test'
+          arg: ${{ github.sha }}
       - name: Second
         uses: ./second
         id: second
