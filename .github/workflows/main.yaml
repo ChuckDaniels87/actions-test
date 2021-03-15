@@ -1,0 +1,26 @@
+on: [push]
+
+jobs:
+  process_stuff:
+    runs-on: ubuntu-latest
+    name: A job to process stuff
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: First
+        uses: ./first
+        id: first
+        with:
+          arg: 'Test'
+      - name: Second
+        uses: ./second
+        id: second
+        with:
+          arg: ${{ steps.first.outputs.out }}
+      - name: Third
+        uses: ./third
+        id: third
+        with:
+          arg: ${{ steps.second.outputs.out }}
+      - name: Get the output
+        run: echo "The result is ${{ steps.third.outputs.out }}"
